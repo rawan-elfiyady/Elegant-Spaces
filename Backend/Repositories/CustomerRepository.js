@@ -20,7 +20,8 @@ async function getCustomerByEmail(email) {
     .eq("email", email)
     .maybeSingle();
 
-   
+    console.log(error.message);
+    console.log(error.message);
     if(error) throw new Error(error.message);
 
     return data;
