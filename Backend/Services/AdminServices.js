@@ -1,5 +1,30 @@
 const ProductRepo = require("../Repositories/ProductRepository");
 const CategoryRepo = require("../Repositories/CategoryRepository");
+const AdminRepo = require("../Repositories/UserRepository");
+
+
+///////////////////////////////Profile////////////////////////////
+async function viewProfile(id) {
+    try{
+        const admin = await AdminRepo.getUserById(id);
+        return admin;
+    } catch(error) {
+        throw new Error(`Error Fetching Profile: ${JSON.stringify(error)}`);
+    }
+}
+
+async function editProfile(id, updates) {
+    
+    try {
+        const updated = await AdminRepo.editProfile(id, updates);
+
+        return updated;
+    } catch (error) {
+        throw new Error(`Error Editing Profile ${error.message}`);
+    }
+}
+///////////////////////////////Products////////////////////////////
+
 
 async function CreateProduct(productData) {
     try{
@@ -61,7 +86,7 @@ async function removeProduct(id) {
     }
 }
 
-///////////////////////////////Products////////////////////////////
+///////////////////////////////Categories////////////////////////////
 
 async function CreateCategory(categoryData) {
     try{
@@ -112,6 +137,8 @@ async function removeCategory(id) {
 
 
 module.exports ={
+    viewProfile,
+    editProfile,
     CreateProduct,
     getProducts,
     getProductById,

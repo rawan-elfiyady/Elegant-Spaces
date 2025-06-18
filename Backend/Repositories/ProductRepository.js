@@ -54,7 +54,7 @@ async function getProductByStatus(status) {
   const { data, error } = await supabase
     .from("Products")
     .select("*")
-    .eq("availability_status", category)
+    .eq("availability_status", status)
     .single();
   if (error) throw new Error(error.message);
 
