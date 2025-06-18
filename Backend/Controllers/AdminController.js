@@ -2,6 +2,34 @@ const express = require("express");
 const router = express.Router();
 const AdminServices = require("../Services/AdminServices");
 
+
+/////////////////////////////////Profile/////////////////////////////////////
+router.get("/Profile/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const profile = await AdminServices.viewProfile(id);
+    res.status(200).json(profile)
+  } catch (error) {
+    res.status(404).json("Profile Not Found", error.message);
+    next(error);
+  }
+});
+
+router.put("/edit-profile/:id", async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const updates = req.body;
+    const updated = await AdminServices.editProfile(id, updates);
+
+    res.status(200).json("Profile Updated Successfully", updated)
+  } catch (error) {
+    res.status(404).json("Profile Not Found", error.message);
+    next(error);
+  }
+});
+
+///////////////////////////////// Products /////////////////////////////////////
+
 router.post("/Product", async (req, res, next) => {
   try {
     const { name, subcategory, availability_status } = req.body;
@@ -86,7 +114,7 @@ router.delete("/deleteProduct/:id", async (req, res, next) => {
   }
 });
 
-///////////////////////////////// Product /////////////////////////////////////
+///////////////////////////////// Category /////////////////////////////////////
 
 router.post("/Category", async (req, res, next) => {
   try {
@@ -147,3 +175,5 @@ router.delete("/deleteCategory/:id", async (req, res, next) => {
     next(err);
   }
 });
+
+module.exports = router;

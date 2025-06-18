@@ -12,7 +12,7 @@ async function CreateCategory(category) {
 
 async function getCategories() {
     const{data, error} = await supabase
-    .from("Products")
+    .from("Categories")
     .single();
     if(error) throw new Error(error.message);
 
@@ -21,7 +21,7 @@ async function getCategories() {
 
 async function getCategoryById(id) {
     const{data, error} = await supabase
-    .from("Products")
+    .from("Categories")
     .eq("id", id)
     .single();
     if(error) throw new Error(error.message);
@@ -31,7 +31,7 @@ async function getCategoryById(id) {
 
 async function getCategoryByname(name) {
     const{data, error} = await supabase
-    .from("Products")
+    .from("Categories")
     .eq("name", name)
     .single();
     if(error) throw new Error(error.message);

@@ -16,18 +16,41 @@ async function createCustomer(customer) {
 async function getCustomerByEmail(email) {
   const { data, error } = await supabase
     .from("Users")
-    .select("*")
+    .select("id, created_at, name, email, phone, image, role")
     .eq("email", email)
     .maybeSingle();
 
-    console.log(error.message);
-    console.log(error.message);
-    if(error) throw new Error(error.message);
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+async function getUserById(id) {
+  const { data, error } = await supabase
+    .from("Users")
+    .select("id, created_at, name, email, phone, image, role")
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+async function editProfile(id, updates) {
+  const { data, error } = await supabase
+    .from("Users")
+    .update(updates)
+    .eq("id", id)
+    .single();
+
+    if (error) throw new Error(error.message);
 
     return data;
 }
-
 module.exports = {
   createCustomer,
   getCustomerByEmail,
+  getUserById,
+  editProfile
 };
