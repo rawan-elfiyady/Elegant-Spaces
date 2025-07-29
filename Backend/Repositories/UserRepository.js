@@ -3,25 +3,26 @@ const supabase = require("../Config/SupabaseClient");
 async function getUserByEmail(email) {
   const { data, error } = await supabase
     .from("Users")
-    .select("id, created_at, name, email, phone, image, role")
+    .select("id, email, password, role, name")
     .eq("email", email)
     .maybeSingle();
 
-    if (error) throw new Error(error.message);
-    
-    return data;
+  if (error) throw new Error(error.message);
+
+  return data;
 }
 
-async function getUserById(id){
-    const { data, error } = await supabase
+async function getUserById(id) {
+  console.log("get in the repository");
+  const { data, error } = await supabase
     .from("Users")
     .select("id, created_at, name, email, phone, image, role")
     .eq("id", id)
     .single();
 
-    if (error) throw new Error(error.message);
-    
-    return data;
+  if (error) throw new Error(error.message);
+
+  return data;
 }
 
 async function editProfile(id, updates) {
@@ -32,14 +33,14 @@ async function editProfile(id, updates) {
     .eq("id", id)
     .single();
 
-    if (error) throw new Error(error.message);
-    console.log(data);
+  if (error) throw new Error(error.message);
+  console.log(data);
 
-    return data;
+  return data;
 }
 
 module.exports = {
-    getUserByEmail,
-    getUserById,
-    editProfile
-}
+  getUserByEmail,
+  getUserById,
+  editProfile,
+};
