@@ -16,7 +16,7 @@ async function createCustomer(customer) {
 async function getCustomerByEmail(email) {
   const { data, error } = await supabase
     .from("Users")
-    .select("id, created_at, name, email, phone, image, role")
+    .select("id, created_at, name, email, phone, role")
     .eq("email", email)
     .maybeSingle();
 
@@ -28,7 +28,7 @@ async function getCustomerByEmail(email) {
 async function getUserById(id) {
   const { data, error } = await supabase
     .from("Users")
-    .select("id, created_at, name, email, phone, image, role")
+    .select("id, created_at, name, email, phone, role")
     .eq("id", id)
     .single();
 
@@ -44,13 +44,13 @@ async function editProfile(id, updates) {
     .eq("id", id)
     .single();
 
-    if (error) throw new Error(error.message);
+  if (error) throw new Error(error.message);
 
-    return data;
+  return data;
 }
 module.exports = {
   createCustomer,
   getCustomerByEmail,
   getUserById,
-  editProfile
+  editProfile,
 };
