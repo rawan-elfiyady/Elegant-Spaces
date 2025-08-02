@@ -18,10 +18,12 @@ router.post("/register", async(req, res, next) => {
 });
 
 router.post("/login", async (req, res) => {
-    const { email, Password, role } = req.body;
+    const { email, Password } = req.body;
+    console.log("Password", Password);
+    console.log("Email", email);
 
     try{
-        user = await AuthServices.login({ email, Password, role });
+        user = await AuthServices.login({ email, Password});
         res.status(201).json(user);
     } catch(err) {
         res.status(err.status || 500).json({ error: err.message });
